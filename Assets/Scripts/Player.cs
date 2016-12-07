@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
             anim.SetFloat("speed", 0);
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && grounded == false)
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             transform.Translate(Vector3.forward * sprintSpeed * Time.deltaTime);
             anim.SetFloat("speed", 0.8f);
@@ -53,13 +53,13 @@ public class Player : MonoBehaviour
         if (!grounded && GetComponent<Rigidbody>().velocity.y == 0)
         {
             grounded = true;
+            anim.SetBool("jump", false);
         }
         if (Input.GetKey(KeyCode.Space) && grounded == true)
         {
             GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0f, jumpPower, 0f), ForceMode.Impulse);
             grounded = false;
             anim.SetBool("jump", true);
-            anim.SetBool("jump", false);
         }
     }
 }
