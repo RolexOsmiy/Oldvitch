@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     public float sprintSpeed = 8;
     public float rotateSpeed = 200;
     public float jumpPower = 10;
+	public float horizontalSpeed = 2.0F;
+	RaycastHit hit;
 
     void Start()
     {
@@ -18,6 +20,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+		float h = horizontalSpeed * Input.GetAxis("Mouse X");
+		transform.Rotate(0, h, 0);
         if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector3.forward * walkSpeed * Time.deltaTime);
@@ -44,11 +48,12 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(Vector3.down * rotateSpeed * Time.deltaTime);
+			transform.Translate(Vector3.left * walkSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
+			transform.Translate(-Vector3.left * walkSpeed * Time.deltaTime);
+
         }
         if (!grounded && GetComponent<Rigidbody>().velocity.y == 0)
         {
